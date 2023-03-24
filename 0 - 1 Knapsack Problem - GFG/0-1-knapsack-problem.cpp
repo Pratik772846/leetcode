@@ -43,12 +43,35 @@ class Solution
         // cout<<dp[n-1][w];
         return dp[n-1][w];
     }
+    int spaceopt(int values[],int wt[],int w,int n){
+        vector<int> prev(w+1,0);
+        for(int i=wt[0];i<=w;i++){
+            prev[i] = values[0];
+        }
+        for(int i=1;i<n;i++){
+            vector<int> curr(w+1,0);
+            for(int j=0;j<=w;j++){
+                int nonpick = prev[j];
+                int pick = INT_MIN;
+                if(j>=wt[i]){
+                    pick = values[i]+ prev[j-wt[i]];
+                }
+                curr[j] = max(pick,nonpick);
+    
+            }
+            prev= curr;
+        }
+        // cout<<prev[w];
+        return prev[w];
+    }
+    
     public:
     int knapSack(int W, int wt[], int val[], int n) 
     {
        vector<vector<int>> dp(n,vector<int> (W+1,-1));
     //   return solve(W,n,wt,val,dp,n-1);
-    return tab(val,wt,W,n);
+    // return tab(val,wt,W,n);
+    return spaceopt(val,wt,W,n);
     }
 };
 
