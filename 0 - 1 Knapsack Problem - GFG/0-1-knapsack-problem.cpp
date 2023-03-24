@@ -23,13 +23,32 @@ class Solution
         }
         return dp[ind][weight] = max(pick,nonpick);
     }
+    int tab(int values[],int wt[],int w,int n){
+        // int n = wt.size();
+        vector<vector<int>> dp(n,vector<int> (w+1,0));
+        for(int i=wt[0];i<=w;i++){
+            dp[0][i] = values[0];
+        }
+    
+        for(int i=1;i<n;i++){
+            for(int j=0;j<=w;j++){
+                int notpick = dp[i-1][j];
+                int pick = INT_MIN;
+                if(j>=wt[i]){
+                    pick = values[i] + dp[i-1][j-wt[i]];
+                }
+                dp[i][j] = max(pick,notpick);
+            }
+        }
+        // cout<<dp[n-1][w];
+        return dp[n-1][w];
+    }
     public:
-    //Function to return max value that can be put in knapsack of capacity W.
     int knapSack(int W, int wt[], int val[], int n) 
-    { 
-       // Your code here
+    {
        vector<vector<int>> dp(n,vector<int> (W+1,-1));
-       return solve(W,n,wt,val,dp,n-1);
+    //   return solve(W,n,wt,val,dp,n-1);
+    return tab(val,wt,W,n);
     }
 };
 
