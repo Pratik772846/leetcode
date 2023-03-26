@@ -54,7 +54,7 @@ class Solution{
                 int pick = -1e9;
                 int len = ind + 1;
                 if(length>=len){
-                    pick = v[ind] +  prev[length-len];
+                    pick = v[ind] +  curr[length-len];
                 }
                 curr[length] = max(pick,notpick);
             }
@@ -68,8 +68,8 @@ class Solution{
         //code here
         vector<vector<int>> dp(n,vector<int>(n+1,-1));
         // return solve(n-1,price,dp,n);
-        return tab(price,n);
-        // return space(price,n);
+        // return tab(price,n);
+        return space(price,n);
         
     }
 };
